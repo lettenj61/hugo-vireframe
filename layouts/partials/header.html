@@ -1,0 +1,14 @@
+<head>
+  <meta charset="UTF-8">
+  {{ .Hugo.Generator }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {{ $titlePattern := (default "%s | %s" .Site.Params.titlePattern) }}
+  <title>{{ printf $titlePattern .Title .Site.Title }}</title>
+  {{- $swatch := (default "default" .Site.Params.bulmaswatch) -}}
+  <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/{{$swatch}}/bulmaswatch.min.css">
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuex"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  {{ partial "custom-header.html" . }}
+</head>

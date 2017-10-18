@@ -1,0 +1,18 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Vireframe Example"
+disableKinds = ["RSS"]
+
+# Built in theme for mocking use
+theme = "hugo-vireframe"
+themesDir = ".."
+contentDir = "./exampleSite/content"
+
+[params]
+  # Bulmaswatch theme name
+  bulmaswatch = "minty"
+  # Use `Navbar` or not.
+  navbar = true
+  # Specify path to JS file you want to load in every template.
+  # The path is relative to `staticDir` configuration.
+  globalJS = "js/app.js"

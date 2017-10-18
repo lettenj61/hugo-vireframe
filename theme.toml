@@ -1,0 +1,15 @@
+# theme.toml template for a Hugo theme
+# See https://github.com/gohugoio/hugoThemes#themetoml for an example
+
+name = "hugo-vireframe"
+license = "MIT"
+licenselink = "https://github.com/lettenj61/hugo-vireframe/blob/master/LICENSE.md"
+description = "Quickly sketch a web app with Hugo, Bulma, Vue.js"
+homepage = "https://github.com/lettenj61/hugo-vireframe/"
+tags = ["mock"]
+features = ["vue", "component"]
+min_version = "0.29"
+
+[author]
+  name = "lettenj61"
+  homepage = "https://github.com/lettenj61/"
