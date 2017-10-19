@@ -1,0 +1,10 @@
+<article class="message{{with .Get "class"}} {{.}}{{end}}">
+  {{- with .Get "title" }}
+  <div class="message-header">
+    <p>{{.}}</p>
+  </div>
+  {{- end }}
+  <div class="message-body">
+    {{ .Inner }}
+  </div>
+</article>

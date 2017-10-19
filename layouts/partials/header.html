@@ -3,10 +3,21 @@
   {{ .Hugo.Generator }}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  {{ $titlePattern := (default "%s | %s" .Site.Params.titlePattern) }}
+  {{- $titlePattern := (default "%s | %s" .Site.Params.titlePattern) }}
   <title>{{ printf $titlePattern .Title .Site.Title }}</title>
-  {{- $swatch := (default "default" .Site.Params.bulmaswatch) -}}
-  <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/{{$swatch}}/bulmaswatch.min.css">
+  {{- $swatch := (default "default" .Site.Params.bulmaswatch.theme) -}}
+  {{- $swatchUrl := printf "https://unpkg.com/bulmaswatch/%s/bulmaswatch.min.css" $swatch -}}
+  {{- .Scratch.Set "bulmaHref" $swatchUrl -}}
+  {{- if .Site.Params.bulmaswatch -}}
+    {{- $S := .Scratch -}}
+    {{- with .Site.Params.bulmaswatch -}}
+      {{- if and (isset . "lib") (ne .lib "cdn") -}}
+        {{- $S.Set "bulmaHref" (relURL .lib) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end}}
+  <link rel="stylesheet" href="{{.Scratch.Get "bulmaHref" | safeURL}}">
+  <link rel="stylesheet" href="{{"css/vireframe.css" | relURL}}">
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/vuex"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>

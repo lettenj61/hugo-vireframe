@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="{{.Page.Language | default "en"}}">
+<head>
+  {{ partial "header.html" . }}
+</head>
+<body>
+  {{ partial "navbar.html" . }}
+  <section class="hero" id="guide-eyecandy">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">{{ .Title }}</h1>
+        <h2 class="subtitle">{{ .Params.subtitle }}</h2>
+      </div>
+    </div>
+  </section>
+  {{ partial "single-section.html" . }}
+</body>
+</html>
