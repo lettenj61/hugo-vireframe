@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{.Page.Language | default "en"}}">
+{{ partial "header.html" . }}
+<body>
+  {{ if (eq .Kind "section") }}
+    {{ if .Site.Params.navbar }}
+      {{ partial "navbar.html" . }}
+    {{ end }}
+    {{ range .Pages }}
+      {{ .Content }}
+    {{ end }}
+  {{ end }}
+  {{ partial "footer.html" . }}
+</body>
+</html>
