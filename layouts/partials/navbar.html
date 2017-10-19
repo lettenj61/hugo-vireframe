@@ -1,6 +1,8 @@
-<nav class="navbar" role="navigation">
+<nav class="navbar{{with .Site.Params.navbarClass}} {{.}}{{end}}" role="navigation">
   <div class="navbar-brand">
-    <a href="{{.Site.BaseURL}}" class="navbar-item">{{ .Site.Title }}</a>
+    <a href="{{.Site.BaseURL}}" class="navbar-item">
+      <span style="font-size: 1.1rem;">{{ .Site.Title }}</span>
+    </a>
     <button class="button navbar-burger">
       <span></span>
       <span></span>
@@ -8,7 +10,19 @@
     </button>
   </div>
   <div class="navbar-menu">
-    <div class="navbar-start"></div>
-    <div class="navbar-end"></div>
+    <div class="navbar-start">
+    </div>
+    <div class="navbar-end">
+      {{ if .Site.Menus.main }}
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Pages</a>
+        <div class="navbar-dropdown is-right">
+        {{ range .Site.Menus.main }}
+          <a href="{{.URL}}" class="navbar-item">{{ .Name }}</a>
+        {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
   </div>
 </nav>

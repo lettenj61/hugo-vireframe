@@ -1,4 +1,4 @@
 {{ partial "custom-footer.html" . }}
-{{- if .Site.Params.globalJS -}}
-<script src="{{.Site.Params.globalJS | relURL}}"></script>
+{{- if .Site.Params.globalScript -}}
+<script src="{{.Site.Params.globalScript | relURL}}"></script>
 {{- end -}}

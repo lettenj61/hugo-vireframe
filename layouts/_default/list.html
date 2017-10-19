@@ -4,12 +4,17 @@
 <body>
   {{ if (eq .Kind "section") }}
     {{ if .Site.Params.navbar }}
-      {{ partial "navbar.html" . }}
+      {{- partial "navbar.html" . -}}
     {{ end }}
-    {{ range .Pages }}
+    {{ range (where .Pages "TranslationBaseName" "ne" "_script").ByWeight }}
       {{ .Content }}
     {{ end }}
+    {{ if .Site.Params.contentScript }}
+      {{ with .Site.GetPage "page" .Type "_script.html" }}
+        {{ .Content }}
+      {{ end }}
+    {{ end }}
   {{ end }}
-  {{ partial "footer.html" . }}
+  {{- partial "footer.html" . -}}
 </body>
 </html>
