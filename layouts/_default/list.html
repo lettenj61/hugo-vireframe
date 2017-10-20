@@ -2,7 +2,7 @@
 <html lang="{{.Page.Language | default "en"}}">
 {{ partial "header.html" . }}
 <body>
-  {{ if .Site.Params.navbar }}
+  {{ if and .Site.Params.navbar (ne .Params.navbar false) }}
     {{- partial "navbar.html" . }}
   {{ end }}
   {{- if or (.Params.app) (in .Site.Params.apps .Type) }}

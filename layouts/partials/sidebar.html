@@ -1,0 +1,12 @@
+{{- if and .Site.Params.sidebar (ne .Params.sidebar false) -}}
+<aside class="menu" id="vireframe-sidebar">
+  {{- $menus := .Site.Menus -}}
+  {{- with .Site.Menus.generateMenu -}}
+  {{- range $entry := (index $menus .) }}
+  {{- if $entry.Children }}
+  
+  {{- end }}
+  {{- end }}
+  {{- end -}}
+</aside>
+{{- end -}}

@@ -11,22 +11,36 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start">
-      {{- $menus := .Site.Menus -}}
-      {{- with .Site.Params.generateMenu }}
-      {{- range $entry := (index $menus .) }}
-      {{- if $entry.Children }}
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link" href="{{$entry.URL}}">{{ $entry.Name }}</a>
-        <div class="navbar-dropdown">
-        {{- range $child := $entry.Children }}
-          <a href="{{$child.URL}}" class="navbar-item">{{ $child.Name }}</a>
+    {{- if .Site.Params.generateMenu }}
+      {{ $site := .Site }}
+      {{ $scratch := .Scratch }}
+      {{- $scratch.Set "menus" (where (slice $site.Home) "IsHome" false) -}}
+      {{- range $section := (where $site.Pages "Kind" "section") -}}
+        {{- $isApp := or ($section.Params.app) (in $site.Params.app $section.Section) -}}
+        {{- if (eq $section.Parent.IsHome false) -}}
+          {{- $childMenuKey := (printf "child_%s" $section.Section) -}}
+          {{- $children := union (slice $section) ($scratch.Get $childMenuKey) -}}
+          {{- $scratch.Set $childMenuKey $children -}}
+        {{- else -}}
+          {{- $scratch.Add "menus" $section -}}
+        {{- end -}}
+      {{- end -}}
+      {{- range $index, $menu := $scratch.Get "menus" }}
+        {{- $menuKey := (printf "child_%s" $menu.Section) -}}
+        {{- if $scratch.Get $menuKey }}
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="{{$menu.URL}}">{{ $menu.Title }}</a>
+          <div class="navbar-dropdown">
+          {{- range $child := $scratch.Get $menuKey }}
+            <a href="{{$child.URL}}" class="navbar-item">{{ $child.Title }}</a>
+          {{- end }}
+          </div>
+        </div>
+        {{- else }}
+        <a href="{{$menu.URL}}" class="navbar-item">{{ $menu.Title }}</a>
         {{- end }}
-      </div>
-      {{- else }}
-      <a href="{{$entry.URL}}" class="navbar-item">{{ $entry.Name }}</a>
       {{- end }}
-      {{- end }}
-      {{- end }}
+    {{- end }}
     </div>
     <div class="navbar-end">
     </div>

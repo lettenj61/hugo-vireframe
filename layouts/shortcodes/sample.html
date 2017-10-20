@@ -3,13 +3,7 @@
 <div class="columns">
   <div class="column">
     <div>
-      <pre>
-        {{- if .Get "lang" }}
-        <code class="{{printf "language-%s" (.Get "lang")}}">{{ $body }}</code>
-        {{- else }}
-        <code>{{ $body }}</code>
-        {{- end }}
-      </pre>
+      {{ template "sample-code" dict "body" $body }}
     </div>
   </div>
   <div class="column">
@@ -18,13 +12,17 @@
 </div>
 {{- else }}
 <div>
-  <pre>
-    {{- if .Get "lang" }}
-    <code class="{{printf "language-%s" (.Get "lang")}}">{{ $body }}</code>
-    {{- else }}
-    <code>{{ $body }}</code>
-    {{- end }}
-  </pre>
+  {{ template "sample-code" dict "body" $body }}
   {{ .Inner }}
 </div>
 {{- end }}
+
+{{- define "sample-code" -}}
+<pre>
+  {{- if .lang -}}
+  <code class="language-html">{{- .body -}}</code>
+  {{- else -}}
+  <code>{{ .body }}</code>
+  {{- end -}}
+</pre>
+{{- end -}}

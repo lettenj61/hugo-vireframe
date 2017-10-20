@@ -1,16 +1,24 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Vireframe Example"
-disableKinds = ["RSS"]
+title = "Vireframe"
 
-# Built in theme for mocking use
 theme = "hugo-vireframe"
 
+SectionPagesMenu = "main"
+
+[params.bulmaswatch]
+  # `cdn` or `path/to/bulmaswatch.css` relative to `staticDir` configuration.
+  lib = "css/bulmaswatch.min.css"
+  # Bulmaswatch theme name. You can leave it blank if you don't use CDN.
+  theme = "spacelab"
+
 [params]
-  # Bulmaswatch theme name
-  bulmaswatch = "minty"
-  # Use `Navbar` or not.
+  # Enable global navbar or not.
   navbar = true
-  # Specify path to JS file you want to load in every template.
-  # The path is relative to `staticDir` configuration.
-  globalJS = "js/app.js"
+  # Modifier class to add to global navbar
+  navbarClass = "is-black"
+  # If enabled, automatically include content of `_script.html` for each page in current section.
+  contentScript = true
+  # Generate navbar links and sidebar (if enabled) from given menu entry.
+  # Useful when paired with `sectionPagesMenu` configuration
+  generateMenu = "main"
