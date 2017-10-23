@@ -15,7 +15,7 @@
       {{ $site := .Site }}
       {{ $scratch := .Scratch }}
       {{- $scratch.Set "menus" (where (slice $site.Home) "IsHome" false) -}}
-      {{- range $section := (where $site.Pages "Kind" "section") -}}
+      {{- range $section := (where $site.Pages "Kind" "section").ByWeight -}}
         {{- $isApp := or ($section.Params.app) (in $site.Params.app $section.Section) -}}
         {{- if (eq $section.Parent.IsHome false) -}}
           {{- $childMenuKey := (printf "child_%s" $section.Section) -}}

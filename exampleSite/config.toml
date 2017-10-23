@@ -12,13 +12,17 @@ SectionPagesMenu = "main"
   # Bulmaswatch theme name. You can leave it blank if you don't use CDN.
   theme = "spacelab"
 
+[params.highlightjs]
+  js = "js/highlight.min.js"
+  css = "css/dracula.min.css"
+
 [params]
   # Enable global navbar or not.
   navbar = true
+  # Enable sidebars for each page.
+  sidebar = true
   # Modifier class to add to global navbar
-  navbarClass = "is-black"
-  # If enabled, automatically include content of `_script.html` for each page in current section.
-  contentScript = true
+  navbarClass = "is-primary"
   # Generate navbar links and sidebar (if enabled) from given menu entry.
   # Useful when paired with `sectionPagesMenu` configuration
   generateMenu = "main"

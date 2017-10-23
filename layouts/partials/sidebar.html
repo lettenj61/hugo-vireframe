@@ -1,12 +1,32 @@
-{{- if and .Site.Params.sidebar (ne .Params.sidebar false) -}}
 <aside class="menu" id="vireframe-sidebar">
-  {{- $menus := .Site.Menus -}}
-  {{- with .Site.Menus.generateMenu -}}
-  {{- range $entry := (index $menus .) }}
-  {{- if $entry.Children }}
-  
-  {{- end }}
-  {{- end }}
+{{- if .Site.Params.generateMenu }}
+  {{ $site := .Site }}
+  {{ $scratch := .Scratch }}
+  {{- $scratch.Set "menus" (where (slice $site.Home) "IsHome" false) -}}
+  {{- range $section := (where $site.Pages "Kind" "section").ByWeight -}}
+    {{- $isApp := or ($section.Params.app) (in $site.Params.app $section.Section) -}}
+    {{- if (eq $section.Parent.IsHome false) -}}
+      {{- $childMenuKey := (printf "child_%s" $section.Section) -}}
+      {{- $children := union (slice $section) ($scratch.Get $childMenuKey) -}}
+      {{- $scratch.Set $childMenuKey $children -}}
+    {{- else -}}
+      {{- $scratch.Add "menus" $section -}}
+    {{- end -}}
   {{- end -}}
+  {{- range $index, $menu := $scratch.Get "menus" }}
+    <ul class="menu-list">
+      <li><a href="{{$menu.URL}}">{{ $menu.Title }}</a></li>
+      {{- $menuKey := (printf "child_%s" $menu.Section) -}}
+      {{ if $scratch.Get $menuKey }}
+      <li>
+        <ul class="menu-list">
+          {{ range $child := $scratch.Get $menuKey }}
+          <li><a href="{{$child.URL}}">{{ $child.Title }}</a></li>
+          {{ end }}
+        </ul>
+      </li>
+      {{ end }}
+    </ul>
+  {{- end }}
+{{- end }}
 </aside>
-{{- end -}}

@@ -1,4 +1,9 @@
 {{ partial "custom-footer.html" . }}
-{{- if .Site.Params.globalScript -}}
+{{ if .Site.Params.globalScript }}
 <script src="{{.Site.Params.globalScript | relURL}}"></script>
-{{- end -}}
+{{ end }}
+{{ if .Site.Params.highlightjs }}
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+{{ end }}

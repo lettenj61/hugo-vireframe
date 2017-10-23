@@ -1,6 +1,11 @@
 <section class="section">
   <div class="container is-fluid">
     <div class="columns">
+      {{ if and (.Site.Params.sidebar) (ne .Params.sidebar false) }}
+      <div class="column is-one-quarter">
+        {{ partial "sidebar.html" . }}
+      </div>
+      {{ end }}
       <div class="column">
         <div class="content">
           {{ .Content }}
